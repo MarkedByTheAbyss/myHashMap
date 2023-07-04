@@ -1,4 +1,3 @@
-package MyHashMap;
 import java.util.LinkedList;
 public class myHashMap<K, V> {
 	
@@ -54,12 +53,12 @@ public class myHashMap<K, V> {
 		}
 	}
 	
-	static int indexFor(int h, int length)
+	private int indexFor(int h, int length)
 	{
 	    return h & (length - 1);
 	}
 	
-	public void resize() {
+	private void resize() {
 		var temp = hashMap;
 		int tempSize = maxLength;
 		maxLength *= 2; loadedBuckets = 0;
@@ -77,12 +76,25 @@ public class myHashMap<K, V> {
 	}
 	
 	public void print() {
-		System.out.println("maxLength: " + maxLength.toString());
+		//System.out.println("maxLength: " + maxLength.toString());
 		for (int i = 0; i < maxLength; i++) {
 			var e = hashMap[i].iterator();
 			while(e.hasNext()) {
 				var entry = e.next();
 				System.out.println(entry.key.toString() + ' ' + entry.value.toString());
+			}
+		}
+	}
+
+	public void delete(K key) {
+		for (int i = 0; i < maxLength; i++) {
+			var e = hashMap[i].iterator();
+			while (e.hasNext()) {
+				var entry = e.next();
+				if (entry.key == key) {
+					e.remove();
+					if (hashMap[i].size() == 0) loadedBuckets--;
+				}
 			}
 		}
 	}
