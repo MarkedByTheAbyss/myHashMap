@@ -87,16 +87,15 @@ public class myHashMap<K, V> {
 	}
 
 	public void delete(K key) {
-		for (int i = 0; i < maxLength; i++) {
-			var e = hashMap[i].iterator();
+			LinkedList<Entry> currentList = hashMap[indexFor(key.hashCode(), maxLength)];
+			var e = currentList.iterator();
 			while (e.hasNext()) {
 				var entry = e.next();
 				if (entry.key == key) {
 					e.remove();
-					if (hashMap[i].size() == 0) loadedBuckets--;
+					if (currentList.size() == 0) loadedBuckets--;
 				}
 			}
-		}
 	}
 	
 	
